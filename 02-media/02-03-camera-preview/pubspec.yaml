@@ -1,0 +1,30 @@
+name: take_image
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  provider: ^6.0.3
+  image_picker: ^0.8.5+3
+  image_picker_windows: ^0.1.0+2
+  # /// todo-init-01: add dependency
+  camera: ^0.10.0+1
+  camera_windows: ^0.2.1+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true

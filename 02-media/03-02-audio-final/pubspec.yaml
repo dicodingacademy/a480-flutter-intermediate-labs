@@ -1,0 +1,34 @@
+name: audioplayer_project
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  provider: ^6.0.3
+  # /// todo-01-setup-01: add dependency
+  # /// todo-01-setup-02: for Linux, install some dependencies referring to this link
+  # /// https://github.com/bluefireteam/audioplayers/blob/main/packages/audioplayers_linux/requirements.md
+  audioplayers: ^1.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  # /// todo-01-setup-03: add asset and inject the folder in pubspec.yaml
+  assets:
+    - assets/
+
