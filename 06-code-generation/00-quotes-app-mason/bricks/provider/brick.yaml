@@ -1,0 +1,19 @@
+name: provider
+description: A new brick created with the Mason CLI.
+
+version: 0.1.0+1
+
+environment:
+  mason: ">=0.1.0-dev.37 <0.1.0"
+
+vars:
+  providerName:
+    type: string
+    description: Your provider name
+    default: CounterProvider
+    prompt: What is your provider name?
+  variableProvider:
+    type: string
+    description: List of variable
+    default: '[{"variableType": "int", "variableName": "counter"}]'
+    prompt: What is the list of variable?

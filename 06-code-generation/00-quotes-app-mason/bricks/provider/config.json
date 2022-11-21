@@ -1,0 +1,13 @@
+{
+    "providerName": "AppProvider",
+    "variableProvider": [
+        {
+            "variableType": "bool",
+            "variableName": "isLogin"
+        },
+        {
+            "variableType": "bool",
+            "variableName": "isLoading"
+        }
+    ]
+}

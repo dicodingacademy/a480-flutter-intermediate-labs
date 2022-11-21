@@ -1,0 +1,5 @@
+{
+    "dart.analysisExcludedFolders": [
+        "00-quotes-app-mason"
+    ]
+}

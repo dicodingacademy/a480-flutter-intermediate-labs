@@ -1,0 +1,19 @@
+name: flutter_project
+description: A new brick created with the Mason CLI.
+
+version: 0.1.0+1
+
+environment:
+  mason: ">=0.1.0-dev.37 <0.1.0"
+
+vars:
+  appName:
+    type: string
+    description: Your app name
+    default: MyApp
+    prompt: What is your app name?
+  isStateless:
+    type: boolean
+    description: Make your HomeScreen is Stateless
+    default: true
+    prompt: Do you want your HomeScreen is Stateless?
