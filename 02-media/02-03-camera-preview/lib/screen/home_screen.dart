@@ -60,8 +60,8 @@ class _HomePageState extends State<HomePage> {
                     child: const Text("Camera"),
                   ),
                   ElevatedButton(
-                    onPressed: () => _onImagePickerView(),
-                    child: const Text("Image Picker"),
+                    onPressed: () => _onCustomCameraView(),
+                    child: const Text("Custom Camera"),
                   ),
                 ],
               ),
@@ -74,26 +74,26 @@ class _HomePageState extends State<HomePage> {
 
   _onUpload() async {}
 
-_onGalleryView() async {
-  final provider = context.read<HomeProvider>();
+  _onGalleryView() async {
+    final provider = context.read<HomeProvider>();
 
-  final isMacOS = defaultTargetPlatform == TargetPlatform.macOS;
-  final isLinux = defaultTargetPlatform == TargetPlatform.linux;
-  if (isMacOS || isLinux) return;
+    final isMacOS = defaultTargetPlatform == TargetPlatform.macOS;
+    final isLinux = defaultTargetPlatform == TargetPlatform.linux;
+    if (isMacOS || isLinux) return;
 
-  final picker = ImagePicker();
+    final picker = ImagePicker();
 
-  final pickedFile = await picker.pickImage(
-    source: ImageSource.gallery,
-  );
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
 
-  if (pickedFile != null) {
-    provider.setImageFile(pickedFile);
-    provider.setImagePath(pickedFile.path);
+    if (pickedFile != null) {
+      provider.setImageFile(pickedFile);
+      provider.setImagePath(pickedFile.path);
+    }
   }
-}
 
-  _onImagePickerView() async {
+  _onCameraView() async {
     final provider = context.read<HomeProvider>();
 
     final isAndroid = defaultTargetPlatform == TargetPlatform.android;
@@ -113,7 +113,7 @@ _onGalleryView() async {
     }
   }
 
-  _onCameraView() async {
+  _onCustomCameraView() async {
     final provider = context.read<HomeProvider>();
     final navigator = Navigator.of(context);
 

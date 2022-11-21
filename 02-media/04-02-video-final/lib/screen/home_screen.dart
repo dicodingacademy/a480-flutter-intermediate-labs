@@ -34,23 +34,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
     await previousVideoController?.dispose();
 
-    /// todo-02-init-04: update the new controller
-    if (mounted) {
-      setState(() {
-        controller = videoController;
-      });
-    }
-
-    /// todo-02-init-05: Initialize controller
+    /// todo-02-init-04: Initialize controller
     try {
       await videoController.initialize();
     } on Exception catch (e) {
       print('Error initializing video: $e');
     }
 
-    /// todo-02-init-06: update the boolean
+    /// todo-02-init-05: update the boolean
     if (mounted) {
       setState(() {
+        controller = videoController;
         isVideoInitialize = controller!.value.isInitialized;
       });
 
@@ -69,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    /// todo-02-init-07: run videoInitialize in setState method
+    /// todo-02-init-06: run videoInitialize in setState method
     videoInitialize();
 
     super.initState();
@@ -77,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    /// todo-02-init-08: don't forget to dispose the controller
+    /// todo-02-init-07: don't forget to dispose the controller
     controller?.dispose();
 
     super.dispose();

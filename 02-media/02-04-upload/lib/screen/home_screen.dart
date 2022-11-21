@@ -67,8 +67,8 @@ class _HomePageState extends State<HomePage> {
                     child: const Text("Camera"),
                   ),
                   ElevatedButton(
-                    onPressed: () => _onImagePickerView(),
-                    child: const Text("Image Picker"),
+                    onPressed: () => _onCustomCameraView(),
+                    child: const Text("Custom Camera"),
                   ),
                 ],
               ),
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  _onImagePickerView() async {
+  _onCameraView() async {
     final provider = context.read<HomeProvider>();
 
     final isAndroid = defaultTargetPlatform == TargetPlatform.android;
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  _onCameraView() async {
+  _onCustomCameraView() async {
     final provider = context.read<HomeProvider>();
     final navigator = Navigator.of(context);
 
@@ -182,15 +182,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _showImage() {
-    final imagePath = context.read<HomeProvider>().imagePath;
-    return kIsWeb
-        ? Image.network(
-            imagePath.toString(),
-            fit: BoxFit.contain,
-          )
-        : Image.file(
-            File(imagePath.toString()),
-            fit: BoxFit.contain,
-          );
+    return const Align(
+      alignment: Alignment.center,
+      child: Icon(
+        Icons.image,
+        size: 100,
+      ),
+    );
   }
+  // Widget _showImage() {
+  //   final imagePath = context.read<HomeProvider>().imagePath;
+  //   return kIsWeb
+  //       ? Image.network(
+  //           imagePath.toString(),
+  //           fit: BoxFit.contain,
+  //         )
+  //       : Image.file(
+  //           File(imagePath.toString()),
+  //           fit: BoxFit.contain,
+  //         );
+  // }
 }

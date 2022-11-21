@@ -57,8 +57,8 @@ class _HomePageState extends State<HomePage> {
                     child: const Text("Camera"),
                   ),
                   ElevatedButton(
-                    onPressed: () => _onImagePickerView(),
-                    child: const Text("Image Picker"),
+                    onPressed: () => _onCustomCameraView(),
+                    child: const Text("Custom Camera"),
                   ),
                 ],
               ),
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  _onImagePickerView() async {
+  _onCameraView() async {
     final provider = context.read<HomeProvider>();
 
     /// todo-image-04: check if not Mobile
@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  _onCameraView() async {}
+  _onCustomCameraView() async {}
 
   Widget _showImage() {
     /// todo-show-01: change widget to show the image

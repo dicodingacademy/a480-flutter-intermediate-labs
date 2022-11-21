@@ -54,8 +54,8 @@ class _HomePageState extends State<HomePage> {
                     child: const Text("Camera"),
                   ),
                   ElevatedButton(
-                    onPressed: () => _onImagePickerView(),
-                    child: const Text("Image Picker"),
+                    onPressed: () => _onCustomCameraView(),
+                    child: const Text("Custom Camera"),
                   ),
                 ],
               ),
@@ -70,9 +70,9 @@ class _HomePageState extends State<HomePage> {
 
   _onGalleryView() async {}
 
-  _onImagePickerView() async {}
-
   _onCameraView() async {}
+
+  _onCustomCameraView() async {}
 
   Widget _showImage() {
     return Container();

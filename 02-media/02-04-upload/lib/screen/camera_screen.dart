@@ -19,7 +19,7 @@ class _CameraScreenState extends State<CameraScreen>
 
   CameraController? controller;
 
-  bool _isRearCameraSelected = true;
+  bool _isBackCameraSelected = true;
 
   void onNewCameraSelected(CameraDescription cameraDescription) async {
     final previousCameraController = controller;
@@ -30,16 +30,6 @@ class _CameraScreenState extends State<CameraScreen>
 
     await previousCameraController?.dispose();
 
-    if (mounted) {
-      setState(() {
-        controller = cameraController;
-      });
-    }
-
-    cameraController.addListener(() {
-      if (mounted) setState(() {});
-    });
-
     try {
       await cameraController.initialize();
     } on CameraException catch (e) {
@@ -48,6 +38,7 @@ class _CameraScreenState extends State<CameraScreen>
 
     if (mounted) {
       setState(() {
+        controller = cameraController;
         _isCameraInitialized = controller!.value.isInitialized;
       });
     }
@@ -144,11 +135,11 @@ class _CameraScreenState extends State<CameraScreen>
     });
 
     onNewCameraSelected(
-      widget.cameras[_isRearCameraSelected ? 1 : 0],
+      widget.cameras[_isBackCameraSelected ? 1 : 0],
     );
 
     setState(() {
-      _isRearCameraSelected = !_isRearCameraSelected;
+      _isBackCameraSelected = !_isBackCameraSelected;
     });
   }
 }
