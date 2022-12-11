@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen>
   bool get _isValid => formKey.currentState!.validate();
 
   void _onHover(bool value) {
-    // if (controller.isAnimating) return;
+    if (controller.isAnimating) return;
     if (!_isValid) {
       controller.isCompleted ? controller.reverse() : controller.forward();
     }
@@ -71,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen>
               children: [
                 TextFormField(
                   controller: emailController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: const InputDecoration(
                     hintText: "Email",
                   ),
@@ -84,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen>
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: passwordController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   obscureText: true,
                   decoration: const InputDecoration(
                     hintText: "Password",

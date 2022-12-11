@@ -37,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 TextFormField(
                   controller: emailController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: const InputDecoration(
                     hintText: "Email",
                   ),
@@ -50,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: passwordController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   obscureText: true,
                   decoration: const InputDecoration(
                     hintText: "Password",
@@ -62,7 +64,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 8),
-                GestureDetector(),
                 ElevatedButton(
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
