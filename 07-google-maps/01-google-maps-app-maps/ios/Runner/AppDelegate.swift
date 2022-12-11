@@ -1,6 +1,6 @@
 import UIKit
 import Flutter
-/// todo-01-03: import Google Maps library
+/// todo-00-03: import Google Maps library
 import GoogleMaps  
 
 @UIApplicationMain
@@ -11,9 +11,8 @@ import GoogleMaps
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
 
-    /// todo-delete
-    /// todo-01-04: Add your Google Maps API key here
-    GMSServices.provideAPIKey("AIzaSyCsttTrcRHbRiQJp692mggXqhQOtiehcYk")
+    /// todo-00-04: Add your Google Maps API key here
+    GMSServices.provideAPIKey("YOUR_API_KEY")
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

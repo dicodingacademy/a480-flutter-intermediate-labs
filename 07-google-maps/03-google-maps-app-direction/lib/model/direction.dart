@@ -9,15 +9,9 @@ class Direction {
 
   final List<LatLng> polylinePoints;
 
-  final String totalDistance;
-
-  final String totalDuration;
-
   const Direction._({
     required this.bounds,
     required this.polylinePoints,
-    required this.totalDistance,
-    required this.totalDuration,
   });
 
   static Future<Direction?> getDirections({
@@ -57,20 +51,9 @@ class Direction {
       southwest: LatLng(southwest['lat'], southwest['lng']),
     );
 
-    // Distance & Duration
-    String distance = '';
-    String duration = '';
-    if ((data['legs'] as List).isNotEmpty) {
-      final leg = data['legs'][0];
-      distance = leg['distance']['text'];
-      duration = leg['duration']['text'];
-    }
-
     return Direction._(
       bounds: bounds,
       polylinePoints: _decodePolyline(data['overview_polyline']['points']),
-      totalDistance: distance,
-      totalDuration: duration,
     );
   }
 

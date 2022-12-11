@@ -23,9 +23,9 @@ class _DirectionScreenState extends State<DirectionScreen> {
   final gedungSateLatLng = const LatLng(-6.902525, 107.618796);
 
   /// todo-02-01: define a polyline variable
-  final Set<Polyline> _polylines = <Polyline>{};
+  final Set<Polyline> polylines = <Polyline>{};
 
-  /// todo-04-01: define a location and navigation variable
+  /// todo-03-01: define a location and navigation variable
   final Location location = Location();
 
   bool isNavigationOn = false;
@@ -34,19 +34,19 @@ class _DirectionScreenState extends State<DirectionScreen> {
   void initState() {
     super.initState();
 
-    /// todo-04-03: run the function in initState method
+    /// todo-03-03: run the function in initState method
     Future.microtask(() async {
       await setupLocation();
     });
 
-    /// todo-04-04: listen the current location
+    /// todo-03-04: listen the current location
     location.onLocationChanged.listen((locationData) {
-      /// todo-04-05: check if navigation is active
+      /// todo-03-05: check if navigation is active
       if (isNavigationOn) {
-        /// todo-04-06: get the current location
+        /// todo-03-06: get the current location
         final latLng = LatLng(locationData.latitude!, locationData.longitude!);
 
-        /// todo-04-07: animate a camera based on current location
+        /// todo-03-07: animate a camera based on current location
         CameraPosition cPosition = CameraPosition(
           zoom: 16,
           tilt: 80,
@@ -57,7 +57,7 @@ class _DirectionScreenState extends State<DirectionScreen> {
           CameraUpdate.newCameraPosition(cPosition),
         );
 
-        /// todo-04-08: update the marker based on current location
+        /// todo-03-08: update the marker based on current location
         setState(() {
           markers.removeWhere((m) => m.markerId.value == 'source');
           markers.add(Marker(
@@ -72,8 +72,8 @@ class _DirectionScreenState extends State<DirectionScreen> {
     });
   }
 
-  /// todo-04-02: setup location services and permissions
-  setupLocation() async {
+  /// todo-03-02: setup location services and permissions
+  Future<void> setupLocation() async {
     late bool serviceEnabled;
     late PermissionStatus permissionGranted;
 
@@ -111,9 +111,10 @@ class _DirectionScreenState extends State<DirectionScreen> {
               markers: markers,
               zoomControlsEnabled: false,
               mapToolbarEnabled: false,
+              myLocationButtonEnabled: false,
 
               /// todo-02-08: display a polyline
-              polylines: _polylines,
+              polylines: polylines,
 
               /// todo-01-04: setup controller and marker
               onMapCreated: (controller) async {
@@ -137,19 +138,10 @@ class _DirectionScreenState extends State<DirectionScreen> {
                   mapController = controller;
                   markers.addAll([dicodingMarker, gedungSateMarker]);
                 });
-
-                /// todo-01-05: animate a camera to the fit position
-                LatLngBounds bounds = LatLngBounds(
-                  southwest: dicodingLatLng,
-                  northeast: gedungSateLatLng,
-                );
-                await mapController.animateCamera(
-                  CameraUpdate.newLatLngBounds(bounds, 50),
-                );
               },
             ),
 
-            /// todo-03-01: create a button
+            /// todo-02-09: create a button
             Positioned(
               bottom: 16,
               right: 16,
@@ -158,7 +150,7 @@ class _DirectionScreenState extends State<DirectionScreen> {
                 children: [
                   FloatingActionButton(
                     onPressed: () async {
-                      /// todo-04-11: update the state when click this button
+                      /// todo-03-11: update the state when click this button
                       setState(() {
                         isNavigationOn = false;
 
@@ -173,7 +165,7 @@ class _DirectionScreenState extends State<DirectionScreen> {
                         ));
                       });
 
-                      /// todo-03-02: run a function
+                      /// todo-02-10: run a function
                       await setPolylines(
                         dicodingLatLng,
                         gedungSateLatLng,
@@ -182,13 +174,13 @@ class _DirectionScreenState extends State<DirectionScreen> {
                     child: const Icon(Icons.directions),
                   ),
 
-                  /// todo-04-09: create a button widget
+                  /// todo-03-09: create a button widget
                   const SizedBox(height: 8),
                   FloatingActionButton(
-                    onPressed: () async {
-                      /// todo-04-10: change the navigation state
+                    onPressed: () {
+                      /// todo-03-10: change the navigation state
                       setState(() {
-                        isNavigationOn = !isNavigationOn;
+                        isNavigationOn = true;
                       });
                     },
                     child: const Icon(Icons.navigation),
@@ -206,8 +198,7 @@ class _DirectionScreenState extends State<DirectionScreen> {
   Future<void> setPolylines(LatLng source, LatLng destination) async {
     /// todo-02-03: get a direction from a class
     final result = await Direction.getDirections(
-      /// todo-delete
-      googleMapsApiKey: "AIzaSyCsttTrcRHbRiQJp692mggXqhQOtiehcYk",
+      googleMapsApiKey: "YOUR_API_KEY",
       origin: source,
       destination: destination,
     );
@@ -228,7 +219,7 @@ class _DirectionScreenState extends State<DirectionScreen> {
 
     /// todo-02-06: update a polyline
     setState(() {
-      _polylines.add(polyline);
+      polylines.add(polyline);
     });
 
     /// todo-02-07: animate a camera to a polylines

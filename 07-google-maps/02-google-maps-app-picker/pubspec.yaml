@@ -17,10 +17,10 @@ dependencies:
   google_maps_flutter: ^2.2.1
   google_maps_flutter_web: ^0.4.0+3
 
-  # /// todo-05-01: add dependency
+  # /// todo-02-01: add dependency
   location: ^4.4.0
   
-  # /// todo-03-01: add dependency
+  # /// todo-04-01: add dependency
   geocoding: ^2.0.5
 
   http: ^0.13.5

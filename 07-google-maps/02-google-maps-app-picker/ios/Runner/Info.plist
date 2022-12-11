@@ -47,14 +47,14 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<!-- /// todo-05-03: add manifest -->
+	<!-- /// todo-02-03: add manifest -->
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>The app needs user's location permission</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>The app needs user's location permission</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The app needs location service permission</string>
-	<!-- /// todo-05-04: add this to receive location when application is in background -->
+	<!-- /// todo-02-04: add this to receive location when application is in background -->
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
