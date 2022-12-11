@@ -30,34 +30,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  late AnimationController _controller1;
-  late AnimationController _controller2;
-  late Animation<double> _animation1;
-  late Animation<double> _animation2;
+  late AnimationController pacmanController;
+  late Animation<double> pacmanAnimation;
+  late AnimationController rippleController;
+  late Animation<double> rippleAnimation;
 
   @override
   void initState() {
-    _controller1 = AnimationController(
+    pacmanController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    _animation1 = Tween(begin: 1.0, end: 1.2).animate(_controller1);
-    _controller1.repeat(reverse: true);
+    pacmanAnimation = Tween(begin: 1.0, end: 1.2).animate(pacmanController);
+    pacmanController.repeat(reverse: true);
 
-    _controller2 = AnimationController(
+    rippleController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2000),
     );
-    _animation2 = Tween(begin: 0.0, end: 1.0).animate(_controller2);
-    _controller2.repeat();
+    rippleAnimation = Tween(begin: 0.0, end: 1.0).animate(rippleController);
+    rippleController.repeat();
 
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller1.dispose();
-    _controller2.dispose();
+    pacmanController.dispose();
+    rippleController.dispose();
     super.dispose();
   }
 
@@ -66,18 +66,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       body: Center(
         child: AnimatedBuilder(
-          animation: Listenable.merge([_animation1, _animation2]),
+          animation: Listenable.merge([pacmanAnimation, rippleAnimation]),
           builder: (context, child) {
             return CustomPaint(
               foregroundPainter: PacmanAnimation(
                 color: Colors.yellow,
-                value: _animation1.value,
+                value: pacmanAnimation.value,
                 width: 100,
                 height: 100,
               ),
               painter: RippleAnimation(
                 color: Colors.black,
-                value: _animation2.value,
+                value: rippleAnimation.value,
               ),
               child: const SizedBox(width: 300, height: 300),
             );

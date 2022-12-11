@@ -9,7 +9,7 @@ class MapsScreen extends StatefulWidget {
 }
 
 class _MapsScreenState extends State<MapsScreen> {
-  /// todo-01-06: set the location
+  /// todo-01-01: set the location
   final center = const LatLng(-6.8957473, 107.6337669);
 
   /// todo-02-01: create a controller
@@ -25,7 +25,7 @@ class _MapsScreenState extends State<MapsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        /// todo-01-07: insert GoogleMap widget to show the map
+        /// todo-01-02: insert GoogleMap widget to show the map
         /// todo-04-02: wrap widget with Stack widget
         child: Stack(
           children: [

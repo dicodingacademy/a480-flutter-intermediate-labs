@@ -14,7 +14,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
-  # /// todo-00-01: add google maps dependency
+  # /// todo-00-00: add google maps dependency
   google_maps_flutter: ^2.2.1
   google_maps_flutter_web: ^0.4.0+3
 

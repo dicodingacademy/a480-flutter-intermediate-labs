@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dicoding.google_maps_app">
 
-    <!-- /// todo-05-02: add manifest -->
+    <!-- /// todo-02-02: add manifest -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 
@@ -36,8 +36,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <!-- /// todo-delete -->
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyCsttTrcRHbRiQJp692mggXqhQOtiehcYk"/>
+               android:value="YOUR_API_KEY"/>
     </application>
 </manifest>
