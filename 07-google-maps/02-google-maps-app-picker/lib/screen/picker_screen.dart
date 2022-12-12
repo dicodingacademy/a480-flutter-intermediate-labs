@@ -105,7 +105,7 @@ class _PickerScreenState extends State<PickerScreen> {
     final street = place.street!;
     final address =
         '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-    print(place.toJson());
+
     setState(() {
       placemark = place;
     });
@@ -159,7 +159,6 @@ class _PickerScreenState extends State<PickerScreen> {
     final street = place.street!;
     final address =
         '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-    print(place.toJson());
 
     setState(() {
       placemark = place;
