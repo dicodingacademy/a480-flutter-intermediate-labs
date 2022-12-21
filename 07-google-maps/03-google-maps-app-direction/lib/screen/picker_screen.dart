@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
+import 'package:geocoding/geocoding.dart' as geo;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart' as loc;
+import 'package:location/location.dart';
 
 class PickerScreen extends StatefulWidget {
   const PickerScreen({super.key});
@@ -11,13 +11,13 @@ class PickerScreen extends StatefulWidget {
 }
 
 class _PickerScreenState extends State<PickerScreen> {
-  final center = const LatLng(-6.8957473, 107.6337669);
+  final dicodingOffice = const LatLng(-6.8957473, 107.6337669);
 
   late GoogleMapController mapController;
 
   late final Set<Marker> markers = {};
 
-  Placemark? placemark;
+  geo.Placemark? placemark;
 
   @override
   Widget build(BuildContext context) {
@@ -28,95 +28,44 @@ class _PickerScreenState extends State<PickerScreen> {
             GoogleMap(
               initialCameraPosition: CameraPosition(
                 zoom: 18,
-                target: center,
+                target: dicodingOffice,
               ),
               markers: markers,
               zoomControlsEnabled: false,
               mapToolbarEnabled: false,
+              myLocationButtonEnabled: false,
               myLocationEnabled: true,
-              onMapCreated: (controller) {
-                final marker = Marker(
-                  markerId: const MarkerId("source"),
-                  position: center,
-                );
-
-                setState(() {
-                  mapController = controller;
-                  markers.add(marker);
-                });
-              },
-              onLongPress: (latLng) async {
-                final info = await placemarkFromCoordinates(
-                    latLng.latitude, latLng.longitude);
+              onMapCreated: (controller) async {
+                final info = await geo.placemarkFromCoordinates(
+                    dicodingOffice.latitude, dicodingOffice.longitude);
 
                 final place = info[0];
-                final street = place.street;
+                final street = place.street!;
                 final address =
                     '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-                print(place.toJson());
-
-                defineMarker(latLng, street!, address);
 
                 setState(() {
                   placemark = place;
                 });
 
-                mapController.animateCamera(
-                  CameraUpdate.newLatLng(latLng),
-                );
+                defineMarker(dicodingOffice, street, address);
+
+                setState(() {
+                  mapController = controller;
+                });
               },
+              onLongPress: (LatLng latLng) => onLongPressGoogleMap(latLng),
             ),
             Positioned(
               top: 16,
               right: 16,
               child: FloatingActionButton(
                 child: const Icon(Icons.my_location),
-                onPressed: () async {
-                  final loc.Location location = loc.Location();
-                  late bool serviceEnabled;
-                  late loc.PermissionStatus permissionGranted;
-                  late loc.LocationData locationData;
-
-                  serviceEnabled = await location.serviceEnabled();
-                  if (!serviceEnabled) {
-                    serviceEnabled = await location.requestService();
-                    if (!serviceEnabled) {
-                      print("Location services is not available");
-                      return;
-                    }
-                  }
-
-                  permissionGranted = await location.hasPermission();
-                  if (permissionGranted == loc.PermissionStatus.denied) {
-                    permissionGranted = await location.requestPermission();
-                    if (permissionGranted != loc.PermissionStatus.granted) {
-                      print("Location permission is denied");
-                      return;
-                    }
-                  }
-
-                  locationData = await location.getLocation();
-                  final latLng =
-                      LatLng(locationData.latitude!, locationData.longitude!);
-
-                  final info = await placemarkFromCoordinates(
-                      latLng.latitude, latLng.longitude);
-
-                  final place = info[0];
-                  final street = place.street;
-                  final address =
-                      '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-
-                  defineMarker(latLng, street!, address);
-
-                  mapController.animateCamera(
-                    CameraUpdate.newLatLng(latLng),
-                  );
-                },
+                onPressed: () => onMyLocationButtonPress(),
               ),
             ),
             if (placemark == null)
-              const SizedBox.shrink()
+              const SizedBox()
             else
               Positioned(
                 bottom: 16,
@@ -125,10 +74,76 @@ class _PickerScreenState extends State<PickerScreen> {
                 child: PlacemarkWidget(
                   placemark: placemark!,
                 ),
-              )
+              ),
           ],
         ),
       ),
+    );
+  }
+
+  void onLongPressGoogleMap(LatLng latLng) async {
+    final info =
+        await geo.placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+
+    final place = info[0];
+    final street = place.street!;
+    final address =
+        '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+
+    setState(() {
+      placemark = place;
+    });
+
+    defineMarker(latLng, street, address);
+
+    mapController.animateCamera(
+      CameraUpdate.newLatLng(latLng),
+    );
+  }
+
+  void onMyLocationButtonPress() async {
+    final Location location = Location();
+    late bool serviceEnabled;
+    late PermissionStatus permissionGranted;
+    late LocationData locationData;
+
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        print("Location services is not available");
+        return;
+      }
+    }
+
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        print("Location permission is denied");
+        return;
+      }
+    }
+
+    locationData = await location.getLocation();
+    final latLng = LatLng(locationData.latitude!, locationData.longitude!);
+
+    final info =
+        await geo.placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+
+    final place = info[0];
+    final street = place.street!;
+    final address =
+        '${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+
+    setState(() {
+      placemark = place;
+    });
+
+    defineMarker(latLng, street, address);
+
+    mapController.animateCamera(
+      CameraUpdate.newLatLng(latLng),
     );
   }
 
@@ -155,7 +170,7 @@ class PlacemarkWidget extends StatelessWidget {
     required this.placemark,
   });
 
-  final Placemark placemark;
+  final geo.Placemark placemark;
 
   @override
   Widget build(BuildContext context) {
