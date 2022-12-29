@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 
 class RippleAnimation extends CustomPainter {
   final double value;
-  final Color color;
 
-  RippleAnimation({required this.value, required this.color});
+  RippleAnimation({
+    required this.value,
+  });
 
   void circle(Canvas canvas, Rect rect, double value) {
     final double size = rect.width;
@@ -14,7 +15,7 @@ class RippleAnimation extends CustomPainter {
     final double radius = math.sqrt(area * value / 4);
 
     final double opacity = (1.0 - (value / 4.0)).clamp(0.0, 1.0);
-    final Color animateColor = color.withOpacity(opacity);
+    final Color animateColor = Colors.black.withOpacity(opacity);
     final Paint paint = Paint()..color = animateColor;
 
     canvas.drawCircle(rect.center, radius, paint);
@@ -30,6 +31,6 @@ class RippleAnimation extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant RippleAnimation oldDelegate) {
-    return value != oldDelegate.value || color != oldDelegate.color;
+    return value != oldDelegate.value;
   }
 }
