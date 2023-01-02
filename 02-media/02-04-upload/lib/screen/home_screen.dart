@@ -182,24 +182,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _showImage() {
-    return const Align(
-      alignment: Alignment.center,
-      child: Icon(
-        Icons.image,
-        size: 100,
-      ),
-    );
+    final imagePath = context.read<HomeProvider>().imagePath;
+    return kIsWeb
+        ? Image.network(
+            imagePath.toString(),
+            fit: BoxFit.contain,
+          )
+        : Image.file(
+            File(imagePath.toString()),
+            fit: BoxFit.contain,
+          );
   }
-  // Widget _showImage() {
-  //   final imagePath = context.read<HomeProvider>().imagePath;
-  //   return kIsWeb
-  //       ? Image.network(
-  //           imagePath.toString(),
-  //           fit: BoxFit.contain,
-  //         )
-  //       : Image.file(
-  //           File(imagePath.toString()),
-  //           fit: BoxFit.contain,
-  //         );
-  // }
 }
