@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final List<int> items = [35, 90];
+  final List<int> items = [26, 45];
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
   @override
@@ -41,7 +41,6 @@ class HomeScreen extends StatelessWidget {
             item: items[index],
             animation: animation,
             onDelete: () {
-              listKey.currentState?.insertItem(index);
               final item = items.removeAt(index);
               listKey.currentState?.removeItem(
                 index,
@@ -95,11 +94,17 @@ class MyItem extends StatelessWidget {
             children: [
               Text(
                 "Number $item",
-                style: const TextStyle(fontSize: 24),
+                style: const TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
               ),
               IconButton(
                 onPressed: () => onDelete!(),
-                icon: const Icon(Icons.delete),
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
               ),
             ],
           ),

@@ -1,6 +1,9 @@
+import 'dart:math' as math;
+
+import 'package:custom_painter_project/animations/pacman_animation.dart';
 import 'package:flutter/material.dart';
 
-import 'animations/pacman_animation.dart';
+import 'animations/loader_animation.dart';
 import 'animations/ripple_animation.dart';
 
 void main() {
@@ -30,34 +33,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  late AnimationController pacmanController;
-  late Animation<double> pacmanAnimation;
-  late AnimationController rippleController;
-  late Animation<double> rippleAnimation;
+  late AnimationController loaderController;
+  late Animation<double> loaderAnimation;
 
   @override
   void initState() {
-    pacmanController = AnimationController(
+    loaderController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 1000),
     );
-    pacmanAnimation = Tween(begin: 1.0, end: 1.2).animate(pacmanController);
-    pacmanController.repeat(reverse: true);
-
-    rippleController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2000),
-    );
-    rippleAnimation = Tween(begin: 0.0, end: 1.0).animate(rippleController);
-    rippleController.repeat();
+    loaderAnimation = Tween(begin: 1.0, end: 1.4).animate(CurvedAnimation(
+      parent: loaderController,
+      curve: Curves.easeIn,
+    ));
+    loaderController.repeat(reverse: true);
 
     super.initState();
   }
 
   @override
   void dispose() {
-    pacmanController.dispose();
-    rippleController.dispose();
+    loaderController.dispose();
     super.dispose();
   }
 
@@ -66,20 +62,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       body: Center(
         child: AnimatedBuilder(
-          animation: Listenable.merge([pacmanAnimation, rippleAnimation]),
+          animation: loaderController,
           builder: (context, child) {
-            return CustomPaint(
-              foregroundPainter: PacmanAnimation(
-                color: Colors.yellow,
-                value: pacmanAnimation.value,
-                width: 100,
-                height: 100,
+            return Transform.rotate(
+              angle: loaderController.status == AnimationStatus.forward
+                  ? (math.pi * 2) * loaderController.value
+                  : -(math.pi * 2) * loaderController.value,
+              child: CustomPaint(
+                foregroundPainter: LoaderAnimation(
+                  radiusRatio: loaderAnimation.value,
+                ),
+                size: const Size(300, 300),
               ),
-              painter: RippleAnimation(
-                color: Colors.black,
-                value: rippleAnimation.value,
-              ),
-              child: const SizedBox(width: 300, height: 300),
             );
           },
         ),

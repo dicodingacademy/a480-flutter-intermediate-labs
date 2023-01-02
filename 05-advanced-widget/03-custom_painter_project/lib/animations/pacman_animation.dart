@@ -3,24 +3,19 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class PacmanAnimation extends CustomPainter {
-  final Color color;
   final double value;
-  final double width;
-  final double height;
+
   PacmanAnimation({
-    required this.color,
     required this.value,
-    required this.width,
-    required this.height,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = color;
+    Paint paint = Paint()..color = Colors.yellow;
     Rect rect = Rect.fromCenter(
       center: Offset(size.width / 2, size.height / 2),
-      width: width,
-      height: height,
+      width: size.width,
+      height: size.height,
     );
 
     canvas.drawArc(
@@ -41,6 +36,6 @@ class PacmanAnimation extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant PacmanAnimation oldDelegate) {
-    return color != oldDelegate.color || value != oldDelegate.value;
+    return value != oldDelegate.value;
   }
 }
