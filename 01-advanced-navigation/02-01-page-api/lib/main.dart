@@ -29,7 +29,7 @@ class _QuotesAppState extends State<QuotesApp> {
       home: Navigator(
         pages: [
           MaterialPage(
-            // key: const ValueKey("QuotesListScreen"),
+            key: const ValueKey("QuotesListScreen"),
             child: QuotesListScreen(
               quotes: quotes,
 
@@ -46,26 +46,20 @@ class _QuotesAppState extends State<QuotesApp> {
           /// todo 6: add conditional statement
           if (selectedQuote != null)
             MaterialPage(
-              // key: const ValueKey("QuoteDetailsScreen"),
+              key: const ValueKey("QuoteDetailsScreen"),
               child: QuoteDetailsScreen(
                 quoteId: selectedQuote!,
               ),
             ),
         ],
 
-        /// todo 2: add onPopPage method
-        onPopPage: (route, result) {
-          final didPop = route.didPop(result);
-          if (!didPop) {
-            return false;
+        /// todo 2: add onDidRemovePage method
+        onDidRemovePage: (page) {
+          if (page.key == ValueKey(selectedQuote)) {
+            setState(() {
+              selectedQuote = null;
+            });
           }
-
-          /// todo 8: add setState for go back to other screen
-          setState(() {
-            selectedQuote = null;
-          });
-
-          return true;
         },
       ),
     );

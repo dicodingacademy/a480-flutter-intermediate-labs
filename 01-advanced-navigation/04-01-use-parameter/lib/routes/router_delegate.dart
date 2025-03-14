@@ -19,9 +19,8 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
   /// todo 11: add variable to detect unknown page
   bool? isUnknown;
 
-  MyRouterDelegate(
-    this.authRepository,
-  ) : _navigatorKey = GlobalKey<NavigatorState>() {
+  MyRouterDelegate(this.authRepository)
+    : _navigatorKey = GlobalKey<NavigatorState>() {
     _init();
   }
 
@@ -54,17 +53,15 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
     return Navigator(
       key: navigatorKey,
       pages: historyStack,
-      onPopPage: (route, result) {
-        final didPop = route.didPop(result);
-        if (!didPop) {
-          return false;
+      onDidRemovePage: (page) {
+        if (page.key == ValueKey(selectedQuote)) {
+          selectedQuote = null;
+          notifyListeners();
         }
-
-        isRegister = false;
-        selectedQuote = null;
-        notifyListeners();
-
-        return true;
+        if (isRegister) {
+          isRegister = false;
+          notifyListeners();
+        }
       },
     );
   }
@@ -73,17 +70,17 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
   @override
   PageConfiguration? get currentConfiguration {
     if (isLoggedIn == null) {
-      return PageConfiguration.splash();
+      return SplashPageConfiguration();
     } else if (isRegister == true) {
-      return PageConfiguration.register();
+      return RegisterPageConfiguration();
     } else if (isLoggedIn == false) {
-      return PageConfiguration.login();
+      return LoginPageConfiguration();
     } else if (isUnknown == true) {
-      return PageConfiguration.unknown();
+      return UnknownPageConfiguration();
     } else if (selectedQuote == null) {
-      return PageConfiguration.home();
+      return HomePageConfiguration();
     } else if (selectedQuote != null) {
-      return PageConfiguration.detailQuote(selectedQuote!);
+      return DetailQuotePageConfiguration(selectedQuote!);
     } else {
       return null;
     }
@@ -92,23 +89,26 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
   /// todo 10: set a new route
   @override
   Future<void> setNewRoutePath(PageConfiguration configuration) async {
-    if (configuration.isUnknownPage) {
-      isUnknown = true;
-      isRegister = false;
-    } else if (configuration.isRegisterPage) {
-      isRegister = true;
-    } else if (configuration.isHomePage ||
-        configuration.isLoginPage ||
-        configuration.isSplashPage) {
-      isUnknown = false;
-      selectedQuote = null;
-      isRegister = false;
-    } else if (configuration.isDetailPage) {
-      isUnknown = false;
-      isRegister = false;
-      selectedQuote = configuration.quoteId.toString();
-    } else {
-      print(' Could not set new route');
+    switch (configuration) {
+      case UnknownPageConfiguration():
+        isUnknown = true;
+        isRegister = false;
+        break;
+      case RegisterPageConfiguration():
+        isRegister = true;
+        break;
+      case HomePageConfiguration() ||
+          LoginPageConfiguration() ||
+          SplashPageConfiguration():
+        isUnknown = false;
+        selectedQuote = null;
+        isRegister = false;
+        break;
+      case DetailQuotePageConfiguration():
+        isUnknown = false;
+        isRegister = false;
+        selectedQuote = configuration.quoteId.toString();
+        break;
     }
 
     notifyListeners();
@@ -116,70 +116,62 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
 
   /// todo 13: create new _unknownStack variable
   List<Page> get _unknownStack => const [
-        MaterialPage(
-          key: ValueKey("UnknownPage"),
-          child: UnknownScreen(),
-        ),
-      ];
+    MaterialPage(key: ValueKey("UnknownPage"), child: UnknownScreen()),
+  ];
 
   List<Page> get _splashStack => const [
-        MaterialPage(
-          key: ValueKey("SplashScreen"),
-          child: SplashScreen(),
-        ),
-      ];
+    MaterialPage(key: ValueKey("SplashScreen"), child: SplashScreen()),
+  ];
 
   List<Page> get _loggedOutStack => [
-        MaterialPage(
-          key: const ValueKey("LoginPage"),
-          child: LoginScreen(
-            onLogin: () {
-              isLoggedIn = true;
-              notifyListeners();
-            },
-            onRegister: () {
-              isRegister = true;
-              notifyListeners();
-            },
-          ),
+    MaterialPage(
+      key: const ValueKey("LoginPage"),
+      child: LoginScreen(
+        onLogin: () {
+          isLoggedIn = true;
+          notifyListeners();
+        },
+        onRegister: () {
+          isRegister = true;
+          notifyListeners();
+        },
+      ),
+    ),
+    if (isRegister == true)
+      MaterialPage(
+        key: const ValueKey("RegisterPage"),
+        child: RegisterScreen(
+          onRegister: () {
+            isRegister = false;
+            notifyListeners();
+          },
+          onLogin: () {
+            isRegister = false;
+            notifyListeners();
+          },
         ),
-        if (isRegister == true)
-          MaterialPage(
-            key: const ValueKey("RegisterPage"),
-            child: RegisterScreen(
-              onRegister: () {
-                isRegister = false;
-                notifyListeners();
-              },
-              onLogin: () {
-                isRegister = false;
-                notifyListeners();
-              },
-            ),
-          ),
-      ];
+      ),
+  ];
 
   List<Page> get _loggedInStack => [
-        MaterialPage(
-          key: const ValueKey("QuotesListPage"),
-          child: QuotesListScreen(
-            quotes: quotes,
-            onTapped: (String quoteId) {
-              selectedQuote = quoteId;
-              notifyListeners();
-            },
-            onLogout: () {
-              isLoggedIn = false;
-              notifyListeners();
-            },
-          ),
-        ),
-        if (selectedQuote != null)
-          MaterialPage(
-            key: ValueKey(selectedQuote),
-            child: QuoteDetailsScreen(
-              quoteId: selectedQuote!,
-            ),
-          ),
-      ];
+    MaterialPage(
+      key: const ValueKey("QuotesListPage"),
+      child: QuotesListScreen(
+        quotes: quotes,
+        onTapped: (String quoteId) {
+          selectedQuote = quoteId;
+          notifyListeners();
+        },
+        onLogout: () {
+          isLoggedIn = false;
+          notifyListeners();
+        },
+      ),
+    ),
+    if (selectedQuote != null)
+      MaterialPage(
+        key: ValueKey(selectedQuote),
+        child: QuoteDetailsScreen(quoteId: selectedQuote!),
+      ),
+  ];
 }

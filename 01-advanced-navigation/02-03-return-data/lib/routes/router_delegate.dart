@@ -51,7 +51,7 @@ class MyRouterDelegate extends RouterDelegate
         /// todo-02-delegate-02: add FormScreen page
         if (isForm)
           MaterialPage(
-            key: ValueKey("FormScreen"),
+            key: const ValueKey("FormScreen"),
             child: FormScreen(
               /// todo-02-delegate-03: handle onSend callback
               onSend: () {
@@ -61,19 +61,15 @@ class MyRouterDelegate extends RouterDelegate
             ),
           ),
       ],
-      onPopPage: (route, result) {
-        final didPop = route.didPop(result);
-        if (!didPop) {
-          return false;
+      onDidRemovePage: (page) {
+        if (page.key == ValueKey(selectedQuote)) {
+          selectedQuote = null;
+          notifyListeners();
         }
-
-        selectedQuote = null;
-
-        /// todo-02-delegate-05: don't forget to rearrange
-        isForm = false;
-        notifyListeners();
-
-        return true;
+        if (isForm) {
+          isForm = false;
+          notifyListeners();
+        }
       },
     );
   }

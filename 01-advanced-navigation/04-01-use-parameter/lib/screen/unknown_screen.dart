@@ -18,7 +18,7 @@ class UnknownScreen extends StatelessWidget {
           children: [
             Text(
               'Unknown...',
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
           ],

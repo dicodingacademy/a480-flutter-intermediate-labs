@@ -46,16 +46,11 @@ class MyRouterDelegate extends RouterDelegate
             ),
           ),
       ],
-      onPopPage: (route, result) {
-        final didPop = route.didPop(result);
-        if (!didPop) {
-          return false;
+      onDidRemovePage: (page) {
+        if (page.key == ValueKey(selectedQuote)) {
+          selectedQuote = null;
+          notifyListeners();
         }
-
-        selectedQuote = null;
-        notifyListeners();
-
-        return true;
       },
     );
   }

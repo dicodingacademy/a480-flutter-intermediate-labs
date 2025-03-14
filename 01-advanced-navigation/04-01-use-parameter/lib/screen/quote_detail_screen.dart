@@ -22,8 +22,8 @@ class QuoteDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(quote.author, style: Theme.of(context).textTheme.headline6),
-            Text(quote.quote, style: Theme.of(context).textTheme.subtitle1),
+            Text(quote.author, style: Theme.of(context).textTheme.titleLarge),
+            Text(quote.quote, style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
       ),

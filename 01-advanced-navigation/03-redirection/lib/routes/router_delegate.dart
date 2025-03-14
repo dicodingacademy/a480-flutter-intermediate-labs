@@ -50,17 +50,15 @@ class MyRouterDelegate extends RouterDelegate
 
       /// todo 10: change the list with historyStack
       pages: historyStack,
-      onPopPage: (route, result) {
-        final didPop = route.didPop(result);
-        if (!didPop) {
-          return false;
+      onDidRemovePage: (page) {
+        if (page.key == ValueKey(selectedQuote)) {
+          selectedQuote = null;
+          notifyListeners();
         }
-
-        isRegister = false;
-        selectedQuote = null;
-        notifyListeners();
-
-        return true;
+        if (isRegister) {
+          isRegister = false;
+          notifyListeners();
+        }
       },
     );
   }
