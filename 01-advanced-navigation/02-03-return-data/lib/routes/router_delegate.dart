@@ -66,7 +66,7 @@ class MyRouterDelegate extends RouterDelegate
           selectedQuote = null;
           notifyListeners();
         }
-        if (isForm) {
+        if (page.key == const ValueKey("FormScreen")) {
           isForm = false;
           notifyListeners();
         }
