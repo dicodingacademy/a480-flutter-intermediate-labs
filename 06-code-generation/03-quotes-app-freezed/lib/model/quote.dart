@@ -9,7 +9,7 @@ part 'quote.freezed.dart';
 @freezed
 
 /// todo-02-02: change the property and constructor into this code
-class Quote with _$Quote {
+abstract class Quote with _$Quote {
   const factory Quote({
     required String id,
     required String en,

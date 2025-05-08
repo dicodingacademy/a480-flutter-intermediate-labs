@@ -1,7 +1,8 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'asset_response.dart';
 
@@ -9,155 +10,145 @@ part of 'asset_response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-AssetResponse _$AssetResponseFromJson(Map<String, dynamic> json) {
-  return _AssetResponse.fromJson(json);
-}
 
 /// @nodoc
 mixin _$AssetResponse {
-  @JsonKey(name: "list_quotes")
-  List<Quote> get list => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $AssetResponseCopyWith<AssetResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+@JsonKey(name: "list_quotes") List<Quote> get list;
+/// Create a copy of AssetResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AssetResponseCopyWith<AssetResponse> get copyWith => _$AssetResponseCopyWithImpl<AssetResponse>(this as AssetResponse, _$identity);
+
+  /// Serializes this AssetResponse to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AssetResponse&&const DeepCollectionEquality().equals(other.list, list));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(list));
+
+@override
+String toString() {
+  return 'AssetResponse(list: $list)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $AssetResponseCopyWith<$Res> {
-  factory $AssetResponseCopyWith(
-          AssetResponse value, $Res Function(AssetResponse) then) =
-      _$AssetResponseCopyWithImpl<$Res, AssetResponse>;
-  @useResult
-  $Res call({@JsonKey(name: "list_quotes") List<Quote> list});
-}
+abstract mixin class $AssetResponseCopyWith<$Res>  {
+  factory $AssetResponseCopyWith(AssetResponse value, $Res Function(AssetResponse) _then) = _$AssetResponseCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: "list_quotes") List<Quote> list
+});
 
+
+
+
+}
 /// @nodoc
-class _$AssetResponseCopyWithImpl<$Res, $Val extends AssetResponse>
+class _$AssetResponseCopyWithImpl<$Res>
     implements $AssetResponseCopyWith<$Res> {
-  _$AssetResponseCopyWithImpl(this._value, this._then);
+  _$AssetResponseCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final AssetResponse _self;
+  final $Res Function(AssetResponse) _then;
 
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? list = null,
-  }) {
-    return _then(_value.copyWith(
-      list: null == list
-          ? _value.list
-          : list // ignore: cast_nullable_to_non_nullable
-              as List<Quote>,
-    ) as $Val);
-  }
+/// Create a copy of AssetResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? list = null,}) {
+  return _then(_self.copyWith(
+list: null == list ? _self.list : list // ignore: cast_nullable_to_non_nullable
+as List<Quote>,
+  ));
 }
 
-/// @nodoc
-abstract class _$$_AssetResponseCopyWith<$Res>
-    implements $AssetResponseCopyWith<$Res> {
-  factory _$$_AssetResponseCopyWith(
-          _$_AssetResponse value, $Res Function(_$_AssetResponse) then) =
-      __$$_AssetResponseCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({@JsonKey(name: "list_quotes") List<Quote> list});
 }
 
-/// @nodoc
-class __$$_AssetResponseCopyWithImpl<$Res>
-    extends _$AssetResponseCopyWithImpl<$Res, _$_AssetResponse>
-    implements _$$_AssetResponseCopyWith<$Res> {
-  __$$_AssetResponseCopyWithImpl(
-      _$_AssetResponse _value, $Res Function(_$_AssetResponse) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? list = null,
-  }) {
-    return _then(_$_AssetResponse(
-      list: null == list
-          ? _value._list
-          : list // ignore: cast_nullable_to_non_nullable
-              as List<Quote>,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$_AssetResponse implements _AssetResponse {
-  const _$_AssetResponse(
-      {@JsonKey(name: "list_quotes") required final List<Quote> list})
-      : _list = list;
 
-  factory _$_AssetResponse.fromJson(Map<String, dynamic> json) =>
-      _$$_AssetResponseFromJson(json);
+class _AssetResponse implements AssetResponse {
+  const _AssetResponse({@JsonKey(name: "list_quotes") required final  List<Quote> list}): _list = list;
+  factory _AssetResponse.fromJson(Map<String, dynamic> json) => _$AssetResponseFromJson(json);
 
-  final List<Quote> _list;
-  @override
-  @JsonKey(name: "list_quotes")
-  List<Quote> get list {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_list);
-  }
-
-  @override
-  String toString() {
-    return 'AssetResponse(list: $list)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_AssetResponse &&
-            const DeepCollectionEquality().equals(other._list, _list));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_list));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_AssetResponseCopyWith<_$_AssetResponse> get copyWith =>
-      __$$_AssetResponseCopyWithImpl<_$_AssetResponse>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_AssetResponseToJson(
-      this,
-    );
-  }
+ final  List<Quote> _list;
+@override@JsonKey(name: "list_quotes") List<Quote> get list {
+  if (_list is EqualUnmodifiableListView) return _list;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_list);
 }
 
-abstract class _AssetResponse implements AssetResponse {
-  const factory _AssetResponse(
-          {@JsonKey(name: "list_quotes") required final List<Quote> list}) =
-      _$_AssetResponse;
 
-  factory _AssetResponse.fromJson(Map<String, dynamic> json) =
-      _$_AssetResponse.fromJson;
+/// Create a copy of AssetResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AssetResponseCopyWith<_AssetResponse> get copyWith => __$AssetResponseCopyWithImpl<_AssetResponse>(this, _$identity);
 
-  @override
-  @JsonKey(name: "list_quotes")
-  List<Quote> get list;
-  @override
-  @JsonKey(ignore: true)
-  _$$_AssetResponseCopyWith<_$_AssetResponse> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+Map<String, dynamic> toJson() {
+  return _$AssetResponseToJson(this, );
 }
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AssetResponse&&const DeepCollectionEquality().equals(other._list, _list));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_list));
+
+@override
+String toString() {
+  return 'AssetResponse(list: $list)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AssetResponseCopyWith<$Res> implements $AssetResponseCopyWith<$Res> {
+  factory _$AssetResponseCopyWith(_AssetResponse value, $Res Function(_AssetResponse) _then) = __$AssetResponseCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: "list_quotes") List<Quote> list
+});
+
+
+
+
+}
+/// @nodoc
+class __$AssetResponseCopyWithImpl<$Res>
+    implements _$AssetResponseCopyWith<$Res> {
+  __$AssetResponseCopyWithImpl(this._self, this._then);
+
+  final _AssetResponse _self;
+  final $Res Function(_AssetResponse) _then;
+
+/// Create a copy of AssetResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? list = null,}) {
+  return _then(_AssetResponse(
+list: null == list ? _self._list : list // ignore: cast_nullable_to_non_nullable
+as List<Quote>,
+  ));
+}
+
+
+}
+
+// dart format on

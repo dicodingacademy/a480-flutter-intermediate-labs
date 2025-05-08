@@ -5,7 +5,7 @@ import 'quote.dart';
 part 'loading_state.freezed.dart';
 
 @freezed
-class LoadingState with _$LoadingState {
+sealed class LoadingState with _$LoadingState {
   const factory LoadingState.initial() = LoadingStateInitial;
   const factory LoadingState.loading() = LoadingStateLoading;
   const factory LoadingState.loaded(List<Quote> data) = LoadingStateLoaded;

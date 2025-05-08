@@ -11,7 +11,7 @@ part 'asset_response.freezed.dart';
 @freezed
 
 /// todo-03-02: change the property and constructor into this code
-class AssetResponse with _$AssetResponse {
+abstract class AssetResponse with _$AssetResponse {
   const factory AssetResponse({
     @JsonKey(name: "list_quotes") required List<Quote> list,
   }) = _AssetResponse;
