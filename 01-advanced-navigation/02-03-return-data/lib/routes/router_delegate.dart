@@ -43,9 +43,7 @@ class MyRouterDelegate extends RouterDelegate
         if (selectedQuote != null)
           MaterialPage(
             key: ValueKey(selectedQuote),
-            child: QuoteDetailsScreen(
-              quoteId: selectedQuote!,
-            ),
+            child: QuoteDetailsScreen(quoteId: selectedQuote!),
           ),
 
         /// todo-02-delegate-02: add FormScreen page
@@ -64,10 +62,6 @@ class MyRouterDelegate extends RouterDelegate
       onDidRemovePage: (page) {
         if (page.key == ValueKey(selectedQuote)) {
           selectedQuote = null;
-          notifyListeners();
-        }
-        if (page.key == const ValueKey("FormScreen")) {
-          isForm = false;
           notifyListeners();
         }
       },

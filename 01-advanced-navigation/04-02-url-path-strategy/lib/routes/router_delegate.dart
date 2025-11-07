@@ -55,10 +55,6 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
           selectedQuote = null;
           notifyListeners();
         }
-        if (isRegister) {
-          isRegister = false;
-          notifyListeners();
-        }
       },
     );
   }
