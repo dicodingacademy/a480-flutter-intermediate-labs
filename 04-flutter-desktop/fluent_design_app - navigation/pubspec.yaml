@@ -1,19 +1,19 @@
 name: fluent_design_app
 description: A new Flutter project.
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.2 <3.0.0'
+  sdk: ^3.9.2
 
 dependencies:
   flutter:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  fluent_ui: ^4.0.1
+  fluent_ui: ^4.13.0
 
 dev_dependencies:
   flutter_test:

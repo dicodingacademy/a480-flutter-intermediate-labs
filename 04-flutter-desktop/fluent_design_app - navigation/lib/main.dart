@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return FluentApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
+      theme: FluentThemeData(
         accentColor: Colors.blue,
       ),
       home: const HomeScreen(),
@@ -40,10 +40,6 @@ class FirstScreen extends StatelessWidget {
                 children: [
                   Button(
                     child: const Text('Normal Button'),
-                    onPressed: () {},
-                  ),
-                  TextButton(
-                    child: const Text('Text Button'),
                     onPressed: () {},
                   ),
                   FilledButton(
