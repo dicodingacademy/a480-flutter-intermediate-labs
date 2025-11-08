@@ -42,18 +42,18 @@ class FirstScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       PushButton(
-                        buttonSize: ButtonSize.large,
+                        controlSize: ControlSize.large,
                         onPressed: () {},
                         child: const Text("Large button"),
                       ),
                       PushButton(
-                        buttonSize: ButtonSize.small,
+                        controlSize: ControlSize.small,
                         onPressed: () {},
                         child: const Text("Small button"),
                       ),
                       PushButton(
-                        buttonSize: ButtonSize.large,
-                        isSecondary: true,
+                        controlSize: ControlSize.large,
+                        secondary: true,
                         onPressed: () {},
                         child: const Text("Secondary button"),
                       ),

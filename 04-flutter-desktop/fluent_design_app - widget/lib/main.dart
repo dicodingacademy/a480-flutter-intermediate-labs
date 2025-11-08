@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return FluentApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
+      theme: FluentThemeData(
         accentColor: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
@@ -50,10 +50,6 @@ class FirstScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  TextButton(
-                    child: const Text('Text Button'),
-                    onPressed: () {},
-                  ),
                   FilledButton(
                     child: const Text('Filled Button'),
                     onPressed: () {},
@@ -75,8 +71,8 @@ class SecondScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavigationView(
       content: ScaffoldPage(
-        header: const PageHeader(
-          title: Text("This is Second Screen"),
+        header: PageHeader(
+          title: const Text("This is Second Screen"),
           leading: IconButton(
             icon: const Icon(FluentIcons.back),
             onPressed: () {},
