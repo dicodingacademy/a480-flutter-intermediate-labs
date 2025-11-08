@@ -19,54 +19,53 @@ class MyRouterDelegate extends RouterDelegate
   /// todo-02-delegate-01: add form page state
   bool isForm = false;
 
+  List<Page> get pages => [
+    MaterialPage(
+      key: const ValueKey("QuotesListScreen"),
+      child: QuotesListScreen(
+        quotes: quotes,
+        onTapped: (String quoteId) {
+          selectedQuote = quoteId;
+          notifyListeners();
+        },
+
+        /// todo-02-delegate-04: handle FormScreen callback
+        toFormScreen: () {
+          isForm = true;
+          notifyListeners();
+        },
+      ),
+    ),
+    if (selectedQuote != null)
+      MaterialPage(
+        key: ValueKey(selectedQuote),
+        child: QuoteDetailsScreen(quoteId: selectedQuote!),
+      ),
+
+    /// todo-02-delegate-02: add FormScreen page
+    if (isForm)
+      MaterialPage(
+        key: const ValueKey("FormScreen"),
+        child: FormScreen(
+          /// todo-02-delegate-03: handle onSend callback
+          onSend: () {
+            isForm = false;
+            notifyListeners();
+          },
+        ),
+      ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Navigator(
       key: navigatorKey,
-      pages: [
-        MaterialPage(
-          key: const ValueKey("QuotesListScreen"),
-          child: QuotesListScreen(
-            quotes: quotes,
-            onTapped: (String quoteId) {
-              selectedQuote = quoteId;
-              notifyListeners();
-            },
-
-            /// todo-02-delegate-04: handle FormScreen callback
-            toFormScreen: () {
-              isForm = true;
-              notifyListeners();
-            },
-          ),
-        ),
-        if (selectedQuote != null)
-          MaterialPage(
-            key: ValueKey(selectedQuote),
-            child: QuoteDetailsScreen(
-              quoteId: selectedQuote!,
-            ),
-          ),
-
-        /// todo-02-delegate-02: add FormScreen page
-        if (isForm)
-          MaterialPage(
-            key: const ValueKey("FormScreen"),
-            child: FormScreen(
-              /// todo-02-delegate-03: handle onSend callback
-              onSend: () {
-                isForm = false;
-                notifyListeners();
-              },
-            ),
-          ),
-      ],
+      pages: pages,
       onDidRemovePage: (page) {
         if (page.key == ValueKey(selectedQuote)) {
           selectedQuote = null;
           notifyListeners();
         }
-        if (page.key == const ValueKey("FormScreen")) {
+        if (isForm && page.key == const ValueKey("FormScreen")) {
           isForm = false;
           notifyListeners();
         }

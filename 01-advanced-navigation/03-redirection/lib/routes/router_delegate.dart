@@ -13,9 +13,8 @@ class MyRouterDelegate extends RouterDelegate
   final GlobalKey<NavigatorState> _navigatorKey;
   final AuthRepository authRepository;
 
-  MyRouterDelegate(
-    this.authRepository,
-  ) : _navigatorKey = GlobalKey<NavigatorState>() {
+  MyRouterDelegate(this.authRepository)
+    : _navigatorKey = GlobalKey<NavigatorState>() {
     /// todo 9: create initial function to check user logged in.
     _init();
   }
@@ -55,7 +54,7 @@ class MyRouterDelegate extends RouterDelegate
           selectedQuote = null;
           notifyListeners();
         }
-        if (page.key == const ValueKey("RegisterPage")) {
+        if (isRegister && page.key == const ValueKey("RegisterPage")) {
           isRegister = false;
           notifyListeners();
         }
@@ -70,67 +69,62 @@ class MyRouterDelegate extends RouterDelegate
 
   /// todo 12: add these variable to support history stack
   List<Page> get _splashStack => const [
-        MaterialPage(
-          key: ValueKey("SplashScreen"),
-          child: SplashScreen(),
-        ),
-      ];
+    MaterialPage(key: ValueKey("SplashScreen"), child: SplashScreen()),
+  ];
 
   List<Page> get _loggedOutStack => [
-        MaterialPage(
-          key: const ValueKey("LoginPage"),
-          child: LoginScreen(
-            /// todo 17: add onLogin and onRegister method to update the state
-            onLogin: () {
-              isLoggedIn = true;
-              notifyListeners();
-            },
-            onRegister: () {
-              isRegister = true;
-              notifyListeners();
-            },
-          ),
+    MaterialPage(
+      key: const ValueKey("LoginPage"),
+      child: LoginScreen(
+        /// todo 17: add onLogin and onRegister method to update the state
+        onLogin: () {
+          isLoggedIn = true;
+          notifyListeners();
+        },
+        onRegister: () {
+          isRegister = true;
+          notifyListeners();
+        },
+      ),
+    ),
+    if (isRegister == true)
+      MaterialPage(
+        key: const ValueKey("RegisterPage"),
+        child: RegisterScreen(
+          onRegister: () {
+            isRegister = false;
+            notifyListeners();
+          },
+          onLogin: () {
+            isRegister = false;
+            notifyListeners();
+          },
         ),
-        if (isRegister == true)
-          MaterialPage(
-            key: const ValueKey("RegisterPage"),
-            child: RegisterScreen(
-              onRegister: () {
-                isRegister = false;
-                notifyListeners();
-              },
-              onLogin: () {
-                isRegister = false;
-                notifyListeners();
-              },
-            ),
-          ),
-      ];
+      ),
+  ];
 
   List<Page> get _loggedInStack => [
-        MaterialPage(
-          key: const ValueKey("QuotesListPage"),
-          child: QuotesListScreen(
-            quotes: quotes,
-            onTapped: (String quoteId) {
-              selectedQuote = quoteId;
-              notifyListeners();
-            },
+    MaterialPage(
+      key: const ValueKey("QuotesListPage"),
+      child: QuotesListScreen(
+        quotes: quotes,
+        onTapped: (String quoteId) {
+          selectedQuote = quoteId;
+          notifyListeners();
+        },
 
-            /// todo 21: add onLogout method to update the state and
-            /// create a logout button
-            onLogout: () {
-              isLoggedIn = false;
-              notifyListeners();
-            },
-          ),
-        ),
-        if (selectedQuote != null)
-          MaterialPage(
-            key: ValueKey(selectedQuote),
-            child: QuoteDetailsScreen(
-              quoteId: selectedQuote!,
-            ),
-          ),
-      ];
+        /// todo 21: add onLogout method to update the state and
+        /// create a logout button
+        onLogout: () {
+          isLoggedIn = false;
+          notifyListeners();
+        },
+      ),
+    ),
+    if (selectedQuote != null)
+      MaterialPage(
+        key: ValueKey(selectedQuote),
+        child: QuoteDetailsScreen(quoteId: selectedQuote!),
+      ),
+  ];
 }
