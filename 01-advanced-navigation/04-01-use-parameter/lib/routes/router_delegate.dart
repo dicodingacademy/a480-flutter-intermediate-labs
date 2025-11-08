@@ -58,6 +58,10 @@ class MyRouterDelegate extends RouterDelegate<PageConfiguration>
           selectedQuote = null;
           notifyListeners();
         }
+        if (isRegister && page.key == const ValueKey("RegisterPage")) {
+          isRegister = false;
+          notifyListeners();
+        }
       },
     );
   }
